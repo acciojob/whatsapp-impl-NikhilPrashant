@@ -91,7 +91,7 @@ public class WhatsappRepository {
         }
         if (userFound) {
             adminMap.put(group, user);
-            return "SUCCESS";
+            return "User Added In Database";
         }
         throw new Exception("User is not a participant");
 
