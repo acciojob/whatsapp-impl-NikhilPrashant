@@ -30,7 +30,7 @@ public class WhatsappRepository {
             User user = new User(name, mobileNumber);
             userMobile.add(mobileNumber);
         }
-        return "User Added In Database";
+        return "SUCCESS";
     }
 
     public Group createGroup(List<User> userList) {
@@ -91,7 +91,7 @@ public class WhatsappRepository {
         }
         if (userFound) {
             adminMap.put(group, user);
-            return "User Added In Database";
+            return "SUCCESS";
         }
         throw new Exception("User is not a participant");
 
