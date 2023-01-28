@@ -28,12 +28,12 @@ public class WhatsappRepository {
     }
 
     public String createUser(String name, String mobileNumber) throws Exception {
-        if (userMobile.contains(mobileNumber)) throw new Exception("User Already Exists In Database");
+        if (userMobile.contains(mobileNumber)) throw new Exception("User already exists");
         else {
             User user = new User(name, mobileNumber);
             userMobile.add(mobileNumber);
         }
-        return "User Added In Database";
+        return "SUCCESS";
     }
 
     public Group createGroup(List<User> users) {
@@ -75,14 +75,14 @@ public class WhatsappRepository {
                 groupMessageMap.put(group, messages);
                 return messages.size();
             }
-            throw new Exception("You Are Not In The Group");
+            throw new Exception("You are not allowed to send message");
         }
-        throw new Exception("Group Doesn't Exist");
+        throw new Exception("Group does not exist");
     }
 
     public String changeAdmin(User approver, User user, Group group) throws Exception {
-        if (!adminMap.containsKey(group)) throw new Exception("Group Doesn't Exist");
-        if (adminMap.get(group).equals(approver)) throw new Exception("You Are Not An Admin");
+        if (!adminMap.containsKey(group)) throw new Exception("Group does not exist");
+        if (adminMap.get(group).equals(approver)) throw new Exception("Approver does not have rights");
         List<User> participants = groupUserMap.get(group);
         Boolean isUserPresent = false;
         for (User participant : participants) {
@@ -95,7 +95,7 @@ public class WhatsappRepository {
             adminMap.put(group, user);
             return "SUCCESS";
         }
-        throw new Exception("User Not In Group");
+        throw new Exception("User is not a participant");
     }
 
     public int removeUser(User user) throws Exception {
@@ -105,7 +105,7 @@ public class WhatsappRepository {
             for (User participant : groupUserMap.get(group)) {
                 if (participant.equals(user)) {
                     if (adminMap.get(group).equals(user)) {
-                        throw new Exception("User Is An Admin");
+                        throw new Exception("Cannot remove admin");
                     }
                     userGroup = group;
                     isUserPresent = true;
@@ -150,7 +150,7 @@ public class WhatsappRepository {
             if (message.getTimestamp().after(start) && message.getTimestamp().before(end))
                 filteredMessages.add(message);
         }
-        if (filteredMessages.size() < K) throw new Exception("Number Of Messages Is Less Than K");
+        if (filteredMessages.size() < K) throw new Exception("K is greater than the number of messages");
         Collections.sort(filteredMessages, new Comparator<Message>() {
             public int compare(Message m1, Message m2) {
                 return m2.getTimestamp().compareTo(m1.getTimestamp());
