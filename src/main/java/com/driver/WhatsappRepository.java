@@ -35,7 +35,7 @@ public class WhatsappRepository {
 
     public Group createGroup(List<User> userList) {
         if (userList.size() == 2) {
-            Group group = new Group(userList.get(0).getName(), 2);
+            Group group = new Group(userList.get(1).getName(), 2);
             adminMap.put(group, userList.get(0));
             groupUserMap.put(group, userList);
             groupMessageMap.put(group, new ArrayList<Message>());
