@@ -34,7 +34,6 @@ public class WhatsappRepository {
     }
 
     public Group createGroup(List<User> userList) {
-        if (userList.size() < 2) return null;
         if (userList.size() == 2) {
             Group group = new Group(userList.get(0).getName(), 2);
             adminMap.put(group, userList.get(0));
@@ -43,7 +42,7 @@ public class WhatsappRepository {
             return group;
         }
         this.customGroupCount += 1;
-        Group group = new Group(new String("Group " + customGroupCount), userList.size());
+        Group group = new Group(new String("Group " + this.customGroupCount), userList.size());
         adminMap.put(group, userList.get(0));
         groupUserMap.put(group, userList);
         groupMessageMap.put(group, new ArrayList<Message>());
