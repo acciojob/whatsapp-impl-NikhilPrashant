@@ -25,7 +25,7 @@ public class WhatsappRepository {
     }
 
     public String createUser(String name, String mobileNumber) throws Exception {
-        if (userMobile.contains(mobileNumber)) throw new Exception("User Already Exists In Database");
+        if (userMobile.contains(mobileNumber)) throw new Exception("User already exists");
         else {
             User user = new User(name, mobileNumber);
             userMobile.add(mobileNumber);
